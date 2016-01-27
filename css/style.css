@@ -1,0 +1,19 @@
+* {
+	font-family: Tahoma;
+	margin: 0;
+}
+
+#body {
+	width: 80%;
+	margin: 0 auto;
+
+}
+
+h1 {
+	margin-bottom: 15px;
+}
+
+ul
+{
+	list-style-type: none;
+}
