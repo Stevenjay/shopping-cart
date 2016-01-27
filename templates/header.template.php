@@ -6,3 +6,11 @@
 </head>
 <body>
 	<div id="body">
+
+<?php 
+
+	echo '<pre>';
+	print_r( $_SESSION['cart'] );
+	echo '</pre>'
+
+?>	
