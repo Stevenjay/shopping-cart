@@ -39,15 +39,41 @@ if(isset($_POST['add-to-cart'])) {
 	// Extract the data 
 	$result  = $result->fetch_assoc();
 
-	//Add the item to the cart
-	$_SESSION['cart'][] = [
+	$productFound = false;
 
-		'id'=>$_POST['product-id'],
-		'name'=>$_POST['name'],
-		'description'=>$_POST['description'],
-		'price' => $result['price']
+	//Loop over the cart and se if the product is added already 
+	for( $i = 0; $i<count($_SESSION['cart']); $i++ ) {
 
-	];
+		//Get the id of the product in the cart 
+		$cartItemID = $_SESSION['cart'][$i]['id'];
+
+		//Get the id of the product being added to the cart 
+		$addItemID = $_POST['product-id'];
+
+		//If the two ID's match
+		if ( $cartItemID == $addItemID ) {
+			$_SESSION['cart'][$i]['quantity'] += $_POST['quantity'];
+
+			$productFound = true;
+		}
+
+	}
+
+	//If product was NOT found in the cart
+	if (!$productFound) {
+
+		//Add the item to the cart
+		$_SESSION['cart'][] = [
+
+			'id'=>$_POST['product-id'],
+			'name'=>$_POST['name'],
+			'description'=>$_POST['description'],
+			'price' => $result['price'],
+			'quantity' => $_POST['quantity']
+
+		];
+
+	}
 
 }
 
