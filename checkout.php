@@ -10,7 +10,7 @@ include 'templates/cart-contents.template.php';
 
 
 
-
+include 'templates/checkout-form.template.php';
 
 
 
