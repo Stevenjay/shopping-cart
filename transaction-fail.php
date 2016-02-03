@@ -14,14 +14,39 @@ $response = $pxpay->getResponse( $_GET['result'] );
 //Was the transaction successful? 
 if ( $response->getSuccess() == 0 ) {
 
+	$dbc = new mysqli ('localhost', 'root', '', 'shopping_cart');
+
+	//Prepare the update SQL
+	$orderID = $_SESSION['orderID'];
+
+	$sql = "UPDATE orders SET state = "; 
+
+	//Switch based on response text 
+	switch( $response->getResponseText() ) {
+
+		case 'CARD EXPIRED':
+			$sql .= " 'expired' ";
+		break;
+
+		case 'DECLINED':
+			$sql .=" 'declined' ";
+		break;
+
+		case 'DECLINED (U9)':
+			$sql .= " 'timeout' ";
+		break;	
+
+	}
+
+	$sql .= " WHERE id = $orderID";
+
+	$dbc->query( $sql );
+
 	//Update the database order to say paid
 	echo '<pre>';
 	print_r($response);
 
 	//E-mail the client
 
-	//Email the website owner 
-
-	//Clear the cart 
 
 }

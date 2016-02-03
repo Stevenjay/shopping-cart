@@ -18,7 +18,19 @@ if ( $response->getSuccess() == 1 ) {
 	echo '<pre>';
 	print_r($response);
 
-	//E-mail the client
+	$dbc = new mysqli('localhost', 'root', '', 'shopping_cart');
+
 	
+	//Extract order ID from the session
+	$orderID = $_SESSION['orderID'];
+
+	$dbc->query("UPDATE orders SET state = 'approved' WHERE id = $orderID");
+
+	//E-mail the client
+
+	//E-mail website owner
+
+	//Clear the cart
+	$_SESSION['cart'] = [];
 
 }

@@ -34,8 +34,11 @@ $sql = "INSERT INTO orders VALUES(NULL, '$name', $suburb, '$address', '$phone', 
 //Run the query 
 $dbc->query( $sql );
 
-//GEt the ID of this order
+//Get the ID of this order
 $orderID = $dbc->insert_id;
+
+//Save the order ID in the session
+$_SESSION['orderID'] = $orderID;
 
 //Loop over the cart contents  and add them to the products table
 foreach( $_SESSION['cart'] as $product ) {
